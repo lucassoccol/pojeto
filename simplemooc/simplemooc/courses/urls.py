@@ -1,17 +1,18 @@
-from django.conf.urls import patterns, include, url
+from django.urls import include, re_path
+from simplemooc.courses import views as courses_views
 
-urlpatterns = patterns('simplemooc.courses.views',
-    url(r'^$', 'index', name='index'),
+urlpatterns = [
+    re_path(r'^$', courses_views.index, name='index'),
     # url(r'^(?P<pk>\d+)/$', 'details', name='details'),
-    url(r'^(?P<slug>[\w_-]+)/$', 'details', name='details'),
-    url(r'^(?P<slug>[\w_-]+)/inscricao/$', 'enrollment', name='enrollment'),
-    url(r'^(?P<slug>[\w_-]+)/cancelar-inscricao/$', 'undo_enrollment',
+    re_path(r'^(?P<slug>[\w_-]+)/$', courses_views.details, name='details'),
+    re_path(r'^(?P<slug>[\w_-]+)/inscricao/$', courses_views.enrollment, name='enrollment'),
+    re_path(r'^(?P<slug>[\w_-]+)/cancelar-inscricao/$', courses_views.undo_enrollment,
         name='undo_enrollment'),
-    url(r'^(?P<slug>[\w_-]+)/anuncios/$', 'announcements',
+    re_path(r'^(?P<slug>[\w_-]+)/anuncios/$', courses_views.announcements,
         name='announcements'),
-    url(r'^(?P<slug>[\w_-]+)/anuncios/(?P<pk>\d+)/$', 'show_announcement',
+    re_path(r'^(?P<slug>[\w_-]+)/anuncios/(?P<pk>\d+)/$', courses_views.show_announcement,
         name='show_announcement'),
-    url(r'^(?P<slug>[\w_-]+)/aulas/$', 'lessons', name='lessons'),
-    url(r'^(?P<slug>[\w_-]+)/aulas/(?P<pk>\d+)/$', 'lesson', name='lesson'),
-    url(r'^(?P<slug>[\w_-]+)/materiais/(?P<pk>\d+)/$', 'material', name='material'),
-)
+    re_path(r'^(?P<slug>[\w_-]+)/aulas/$', courses_views.lessons, name='lessons'),
+    re_path(r'^(?P<slug>[\w_-]+)/aulas/(?P<pk>\d+)/$', courses_views.lesson, name='lesson'),
+    re_path(r'^(?P<slug>[\w_-]+)/materiais/(?P<pk>\d+)/$', courses_views.material, name='material'),
+              ]

@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, re_path
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -14,10 +14,10 @@ admin.autodiscover()
 )"""
 
 urlpatterns = [
-    path(r'^', include(('simplemooc.core.urls', 'core'),namespace='core')),
-    path(r'^conta/', include(('simplemooc.accounts.urls', 'accounts'), namespace='accounts')),
-    path(r'^cursos/', include(('simplemooc.courses.urls', 'courses'), name='courses')),
-    path(r'^admin/', 'admin.site.urls', name='admin'),
+    re_path(r'^', include(('simplemooc.core.urls', 'core'),namespace='core')),
+    re_path(r'^conta/', include(('simplemooc.accounts.urls', 'accounts'), namespace='accounts')),
+    re_path(r'^cursos/', include(('simplemooc.courses.urls', 'courses'))),
+    re_path(r'^admin/', admin.site.urls, name='admin'),
 ]
 
 if settings.DEBUG:
